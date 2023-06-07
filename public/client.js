@@ -8,36 +8,6 @@ import { GUI } from './jsm/libs/lil-gui.module.min.js'
 
 const scene = new THREE.Scene()
 
-const ambientLight = new THREE.AmbientLight(0x0C090A)
-ambientLight.intensity = 20
-scene.add(ambientLight)
-
-var pointLights = [];
-
-// Create an array to store the firefly lights
-for (var i = 0; i < 50; i++) {
-  var color = new THREE.Color(0xffff00); // Yellow color for fireflies
-  var intensity = Math.random() * 1 + 1;
-  var distance = Math.random() * 5 + 5;
-
-  // Create the point light
-  var pointLight = new THREE.PointLight(color, intensity, distance);
-
-  // Set the initial position within a specific range
-  var rangeX = 100;
-  var rangeY = -30;
-  var rangeZ = 100;
-  pointLight.position.set(
-    Math.random() * rangeX - rangeX / 2,
-    Math.random() * rangeY,
-    Math.random() * rangeZ - rangeZ / 2
-  );
-
-  // Add the point light to the scene
-  scene.add(pointLight);
-  pointLights.push(pointLight);
-}
-
 
 const camera =  new THREE.PerspectiveCamera(75, window.innerWidth/window.innerHeight, 0.1, 1000)
 camera.position.set(-5,10,5)
@@ -49,6 +19,36 @@ document.body.appendChild(renderer.domElement)
 const controls = new OrbitControls(camera, renderer.domElement)
 controls.enableDamping = true
 controls.target.set(0, 1, 0)
+
+
+const ambientLight = new THREE.AmbientLight(0x0C090A)
+ambientLight.intensity = 20
+scene.add(ambientLight)
+
+//luciernagas
+var pointLights = [];
+
+for (var i = 0; i < 50; i++) {
+  var color = new THREE.Color(0xffff00); // 
+  var intensity = Math.random() * 1 + 1;
+  var distance = Math.random() * 5 + 5;
+
+  var pointLight = new THREE.PointLight(color, intensity, distance);
+
+    //posicion
+  var rangeX = 100;
+  var rangeY = -30;
+  var rangeZ = 100;
+  pointLight.position.set(
+    Math.random() * rangeX - rangeX / 2,
+    Math.random() * rangeY,
+    Math.random() * rangeZ - rangeZ / 2
+  );
+
+  //agregar luciernagas
+  scene.add(pointLight);
+  pointLights.push(pointLight);
+}
 
 let materialArray = [];
 let texture_ft = new THREE.TextureLoader().load( 'models/skybox/0b2447.png');
