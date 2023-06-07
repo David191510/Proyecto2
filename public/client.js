@@ -2,12 +2,11 @@ import * as THREE from 'three'
 import { OrbitControls } from './jsm/controls/OrbitControls.js'
 import { FBXLoader } from './jsm/loaders/FBXLoader.js'
 import { GLTFLoader } from './jsm/loaders/GLTFLoader.js';
-import { GUI } from './jsm/libs/lil-gui.module.min.js'
-
-
+import { EffectComposer } from './jsm/postprocessing/EffectComposer.js';
+import { RenderPass } from './jsm/postprocessing/RenderPass.js';
+import { SMAAPass } from './jsm/postprocessing/SMAAPass.js';
 
 const scene = new THREE.Scene()
-
 
 const camera =  new THREE.PerspectiveCamera(75, window.innerWidth/window.innerHeight, 0.1, 1000)
 camera.position.set(-5,10,5)
@@ -22,8 +21,28 @@ controls.target.set(0, 1, 0)
 
 
 const ambientLight = new THREE.AmbientLight(0x0C090A)
-ambientLight.intensity = 20
+ambientLight.intensity = 50
 scene.add(ambientLight)
+
+//luna
+var moonGeometry = new THREE.SphereGeometry(20, 32, 32);
+
+var moonTexture = new THREE.TextureLoader().load('models/moon.jpg');
+
+var moonMaterial = new THREE.MeshStandardMaterial({
+  emissive: 0xffffff, 
+  emissiveMap: moonTexture
+});
+
+var moonMesh = new THREE.Mesh(moonGeometry, moonMaterial);
+
+var moonLight = new THREE.PointLight(0xffffff, 1, 10); 
+
+scene.add(moonMesh);
+scene.add(moonLight);
+
+moonMesh.position.set(100, 120, 55); 
+moonLight.position.copy(moonMesh.position); 
 
 //luciernagas
 var pointLights = [];
@@ -157,6 +176,14 @@ fbx.load(
     }
 )
 
+const composer = new EffectComposer(renderer);
+const renderPass = new RenderPass( scene, camera );
+composer.addPass( renderPass );
+
+const smaapass = new SMAAPass();
+composer.addPass( smaapass );
+
+
 window.addEventListener('resize', onWindowResize, false)
 function onWindowResize() {
     camera.aspect = window.innerWidth / window.innerHeight
@@ -170,7 +197,7 @@ function animate() {
 
     pointLights.forEach(function (pointLight) {
         var range = 1; // Maximum range of movement in each axis
-        var speed = 0.1; // Speed of movement
+        var speed = 0.2; // Speed of movement
     
         // Generate random displacements within the defined range
         var dx = Math.random() * range - range / 2;
@@ -191,7 +218,8 @@ function animate() {
 }
 
 function render() {
-    renderer.render(scene, camera)
+    composer.render()
+
 }
 
 animate()
