@@ -50,6 +50,7 @@ for (var i = 0; i < 50; i++) {
   pointLights.push(pointLight);
 }
 
+//skybox
 let materialArray = [];
 let texture_ft = new THREE.TextureLoader().load( 'models/skybox/0b2447.png');
 let texture_bk = new THREE.TextureLoader().load( 'models/skybox/0b2447.png');
@@ -71,8 +72,10 @@ let skyboxGeo = new THREE.BoxGeometry( 500, 500, 500);
 let skybox = new THREE.Mesh( skyboxGeo, materialArray );
 scene.add( skybox );
 
-const angleInDegrees = 180;
-const angleInRadians = THREE.MathUtils.degToRad(angleInDegrees);
+//angulos de rotacion
+
+const angleInRadians = THREE.MathUtils.degToRad(180);
+const angle = THREE.MathUtils.degToRad(135);
 
 const gl = new GLTFLoader();
 
@@ -133,6 +136,26 @@ gl.load(
         scene.add(model);
     }
 );
+
+
+gl.load(
+    'models/uploads_files_2901103_Eren(Titan).glb',
+    (gltf) => {
+        const model = gltf.scene;
+        model.rotation.y = angle
+        model.position.set(-25, -29,25)
+        scene.add(model);
+    }
+);
+
+const fbx = new FBXLoader()
+fbx.load(
+    'models/Cloud_Polygon_Blender_1.fbx',
+    (object) => {
+        object.position.set(0,50,0)
+        scene.add(object)
+    }
+)
 
 window.addEventListener('resize', onWindowResize, false)
 function onWindowResize() {
