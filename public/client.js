@@ -8,12 +8,6 @@ import { GUI } from './jsm/libs/lil-gui.module.min.js'
 
 const scene = new THREE.Scene()
 
-
-const light = new THREE.PointLight(0xffffff)
-light.position.set(0, 0, 0)
-light.distance = 10
-scene.add(light)
-
 const ambientLight = new THREE.AmbientLight(0xc2c5cc)
 scene.add(ambientLight)
 
