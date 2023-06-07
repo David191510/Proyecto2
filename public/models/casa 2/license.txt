@@ -1,0 +1,11 @@
+Model Information:
+* title:	Lowpoly medieval house
+* source:	https://sketchfab.com/3d-models/lowpoly-medieval-house-bb5406594f4d4dd59daf1e19cb08e88c
+* author:	v_pustote (https://sketchfab.com/v_pustote)
+
+Model License:
+* license type:	CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)
+* requirements:	Author must be credited. Commercial use is allowed.
+
+If you use this 3D model in your project be sure to copy paste this credit wherever you share it:
+This work is based on "Lowpoly medieval house" (https://sketchfab.com/3d-models/lowpoly-medieval-house-bb5406594f4d4dd59daf1e19cb08e88c) by v_pustote (https://sketchfab.com/v_pustote) licensed under CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)

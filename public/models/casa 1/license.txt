@@ -1,0 +1,11 @@
+Model Information:
+* title:	AOT Eren's home (low-poly)
+* source:	https://sketchfab.com/3d-models/aot-erens-home-low-poly-58def0ce16064f6f923c7038cd2b30a0
+* author:	Solarliu (https://sketchfab.com/jacky15621419)
+
+Model License:
+* license type:	CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)
+* requirements:	Author must be credited. Commercial use is allowed.
+
+If you use this 3D model in your project be sure to copy paste this credit wherever you share it:
+This work is based on "AOT Eren's home (low-poly)" (https://sketchfab.com/3d-models/aot-erens-home-low-poly-58def0ce16064f6f923c7038cd2b30a0) by Solarliu (https://sketchfab.com/jacky15621419) licensed under CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)
