@@ -156,17 +156,6 @@ gl.load(
     }
 );
 
-
-gl.load(
-    'models/uploads_files_2901103_Eren(Titan).glb',
-    (gltf) => {
-        const model = gltf.scene;
-        model.rotation.y = angle
-        model.position.set(-25, -29,25)
-        scene.add(model);
-    }
-);
-
 const fbx = new FBXLoader()
 fbx.load(
     'models/Cloud_Polygon_Blender_1.fbx',
