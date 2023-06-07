@@ -4,7 +4,7 @@ import { FBXLoader } from './jsm/loaders/FBXLoader.js'
 import { GLTFLoader } from './jsm/loaders/GLTFLoader.js';
 import { EffectComposer } from './jsm/postprocessing/EffectComposer.js';
 import { RenderPass } from './jsm/postprocessing/RenderPass.js';
-import { SMAAPass } from './jsm/postprocessing/SMAAPass.js';
+import { UnrealBloomPass } from './jsm/postprocessing/UnrealBloomPass.js';
 
 const scene = new THREE.Scene()
 
@@ -21,7 +21,7 @@ controls.target.set(0, 1, 0)
 
 
 const ambientLight = new THREE.AmbientLight(0x0C090A)
-ambientLight.intensity = 50
+ambientLight.intensity = 20
 scene.add(ambientLight)
 
 //luna
@@ -37,7 +37,7 @@ var moonMaterial = new THREE.MeshStandardMaterial({
 var moonMesh = new THREE.Mesh(moonGeometry, moonMaterial);
 
 var moonLight = new THREE.PointLight(0xffffff, 1, 10); 
-
+moonLight.intensity = 0.00005;
 scene.add(moonMesh);
 scene.add(moonLight);
 
@@ -169,8 +169,9 @@ const composer = new EffectComposer(renderer);
 const renderPass = new RenderPass( scene, camera );
 composer.addPass( renderPass );
 
-const smaapass = new SMAAPass();
-composer.addPass( smaapass );
+const bloompass = new UnrealBloomPass();
+bloompass.strength = 0.02; 
+composer.addPass( bloompass );
 
 
 window.addEventListener('resize', onWindowResize, false)
