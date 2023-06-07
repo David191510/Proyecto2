@@ -47,7 +47,7 @@ moonLight.position.copy(moonMesh.position);
 //luciernagas
 var pointLights = [];
 
-for (var i = 0; i < 50; i++) {
+for (var i = 0; i < 30; i++) {
   var color = new THREE.Color(0xffff00); // 
   var intensity = Math.random() * 1 + 1;
   var distance = Math.random() * 5 + 5;
@@ -56,11 +56,11 @@ for (var i = 0; i < 50; i++) {
 
     //posicion
   var rangeX = 100;
-  var rangeY = -30;
+  var rangeY = -29 + Math.random() * (-27 - (-29));
   var rangeZ = 100;
   pointLight.position.set(
     Math.random() * rangeX - rangeX / 2,
-    Math.random() * rangeY,
+    rangeY,
     Math.random() * rangeZ - rangeZ / 2
   );
 
