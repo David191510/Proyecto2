@@ -5,11 +5,14 @@ import { GLTFLoader } from './jsm/loaders/GLTFLoader.js';
 import { EffectComposer } from './jsm/postprocessing/EffectComposer.js';
 import { RenderPass } from './jsm/postprocessing/RenderPass.js';
 import { UnrealBloomPass } from './jsm/postprocessing/UnrealBloomPass.js';
+import { OBJLoader } from './jsm/loaders/OBJLoader.js';
+import { MTLLoader } from './jsm/loaders/MTLLoader.js';
+
 
 const scene = new THREE.Scene()
 
-const camera =  new THREE.PerspectiveCamera(75, window.innerWidth/window.innerHeight, 0.1, 1000)
-camera.position.set(-5,10,5)
+const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000)
+camera.position.set(-5, 10, 5)
 
 const renderer = new THREE.WebGLRenderer()
 renderer.setSize(window.innerWidth, window.innerHeight)
@@ -30,66 +33,66 @@ var moonGeometry = new THREE.SphereGeometry(20, 32, 32);
 var moonTexture = new THREE.TextureLoader().load('models/moon.jpg');
 
 var moonMaterial = new THREE.MeshStandardMaterial({
-  emissive: 0xffffff, 
-  emissiveMap: moonTexture
+    emissive: 0xffffff,
+    emissiveMap: moonTexture
 });
 
 var moonMesh = new THREE.Mesh(moonGeometry, moonMaterial);
 
-var moonLight = new THREE.PointLight(0xffffff, 1, 10); 
+var moonLight = new THREE.PointLight(0xffffff, 1, 10);
 moonLight.intensity = 0.00005;
 scene.add(moonMesh);
 scene.add(moonLight);
 
-moonMesh.position.set(100, 120, 55); 
-moonLight.position.copy(moonMesh.position); 
+moonMesh.position.set(100, 120, 55);
+moonLight.position.copy(moonMesh.position);
 
 //luciernagas
 var pointLights = [];
 
 for (var i = 0; i < 30; i++) {
-  var color = new THREE.Color(0xffff00); // 
-  var intensity = Math.random() * 1 + 1;
-  var distance = Math.random() * 5 + 5;
+    var color = new THREE.Color(0xffff00); // 
+    var intensity = Math.random() * 1 + 1;
+    var distance = Math.random() * 5 + 5;
 
-  var pointLight = new THREE.PointLight(color, intensity, distance);
+    var pointLight = new THREE.PointLight(color, intensity, distance);
 
     //posicion
-  var rangeX = 100;
-  var rangeY = -29 + Math.random() * (-27 - (-29));
-  var rangeZ = 100;
-  pointLight.position.set(
-    Math.random() * rangeX - rangeX / 2,
-    rangeY,
-    Math.random() * rangeZ - rangeZ / 2
-  );
+    var rangeX = 100;
+    var rangeY = -29 + Math.random() * (-27 - (-29));
+    var rangeZ = 100;
+    pointLight.position.set(
+        Math.random() * rangeX - rangeX / 2,
+        rangeY,
+        Math.random() * rangeZ - rangeZ / 2
+    );
 
-  //agregar luciernagas
-  scene.add(pointLight);
-  pointLights.push(pointLight);
+    //agregar luciernagas
+    scene.add(pointLight);
+    pointLights.push(pointLight);
 }
 
 //skybox
 let materialArray = [];
-let texture_ft = new THREE.TextureLoader().load( 'models/skybox/0b2447.png');
-let texture_bk = new THREE.TextureLoader().load( 'models/skybox/0b2447.png');
-let texture_up = new THREE.TextureLoader().load( 'models/skybox/0b2447.png');
-let texture_dn = new THREE.TextureLoader().load( 'models/skybox/0b2447.png');
-let texture_rt = new THREE.TextureLoader().load( 'models/skybox/0b2447.png');
-let texture_lf = new THREE.TextureLoader().load( 'models/skybox/0b2447.png');
-  
-materialArray.push(new THREE.MeshBasicMaterial( { map: texture_ft }));
-materialArray.push(new THREE.MeshBasicMaterial( { map: texture_bk }));
-materialArray.push(new THREE.MeshBasicMaterial( { map: texture_up }));
-materialArray.push(new THREE.MeshBasicMaterial( { map: texture_dn }));
-materialArray.push(new THREE.MeshBasicMaterial( { map: texture_rt }));
-materialArray.push(new THREE.MeshBasicMaterial( { map: texture_lf })); 
+let texture_ft = new THREE.TextureLoader().load('models/skybox/0b2447.png');
+let texture_bk = new THREE.TextureLoader().load('models/skybox/0b2447.png');
+let texture_up = new THREE.TextureLoader().load('models/skybox/0b2447.png');
+let texture_dn = new THREE.TextureLoader().load('models/skybox/0b2447.png');
+let texture_rt = new THREE.TextureLoader().load('models/skybox/0b2447.png');
+let texture_lf = new THREE.TextureLoader().load('models/skybox/0b2447.png');
+
+materialArray.push(new THREE.MeshBasicMaterial({ map: texture_ft }));
+materialArray.push(new THREE.MeshBasicMaterial({ map: texture_bk }));
+materialArray.push(new THREE.MeshBasicMaterial({ map: texture_up }));
+materialArray.push(new THREE.MeshBasicMaterial({ map: texture_dn }));
+materialArray.push(new THREE.MeshBasicMaterial({ map: texture_rt }));
+materialArray.push(new THREE.MeshBasicMaterial({ map: texture_lf }));
 for (let i = 0; i < 6; i++)
-  materialArray[i].side = THREE.BackSide;
-   
-let skyboxGeo = new THREE.BoxGeometry( 500, 500, 500);
-let skybox = new THREE.Mesh( skyboxGeo, materialArray );
-scene.add( skybox );
+    materialArray[i].side = THREE.BackSide;
+
+let skyboxGeo = new THREE.BoxGeometry(500, 500, 500);
+let skybox = new THREE.Mesh(skyboxGeo, materialArray);
+scene.add(skybox);
 
 //angulos de rotacion
 
@@ -102,7 +105,7 @@ gl.load(
     'models/master sword/scene.gltf',
     (gltf) => {
         const model = gltf.scene;
-        model.position.set(0,-28,0)
+        model.position.set(0, -28, 0)
         scene.add(model);
     }
 );
@@ -111,7 +114,7 @@ gl.load(
     'models/casa 1/scene.gltf',
     (gltf) => {
         const model = gltf.scene;
-        model.position.set(20,-28,0)
+        model.position.set(20, -28, 0)
         model.rotation.y = angleInRadians
         scene.add(model);
     }
@@ -121,8 +124,8 @@ gl.load(
     'models/casa 2/scene.gltf',
     (gltf) => {
         const model = gltf.scene;
-        model.position.set(0, -27,-30)
-        model.scale.set(1.5,1.5,1.5)
+        model.position.set(0, -27, -30)
+        model.scale.set(1.5, 1.5, 1.5)
         model.rotation.y = angleInRadians
         scene.add(model);
     }
@@ -132,7 +135,7 @@ gl.load(
     'models/casa 1/scene.gltf',
     (gltf) => {
         const model = gltf.scene;
-        model.position.set(-20, -28,0)
+        model.position.set(-20, -28, 0)
         scene.add(model);
     }
 );
@@ -142,7 +145,7 @@ gl.load(
     (gltf) => {
         const model = gltf.scene;
         model.rotation.y = angleInRadians
-        model.position.set(0, -29,20)
+        model.position.set(0, -29, 20)
         scene.add(model);
     }
 );
@@ -151,7 +154,7 @@ gl.load(
     'models/montana/scene.gltf',
     (gltf) => {
         const model = gltf.scene;
-        model.position.set(0, 0,0)
+        model.position.set(0, 0, 0)
         scene.add(model);
     }
 );
@@ -160,18 +163,37 @@ const fbx = new FBXLoader()
 fbx.load(
     'models/Cloud_Polygon_Blender_1.fbx',
     (object) => {
-        object.position.set(0,50,0)
+        object.position.set(0, 50, 0)
         scene.add(object)
     }
 )
 
+const mtlLoader = new MTLLoader()
+
+mtlLoader.load(
+    'models/carro/Car7.mtl',
+    (materials) => {
+        materials.preload()
+        console.log(materials)
+        const objLoader = new OBJLoader()
+        objLoader.setMaterials(materials)
+        objLoader.load(
+            'models/carro/Car7.obj',
+            (object) => {
+                object.position.set(-33, -28, -15)
+                scene.add(object)
+            }
+        )
+    }
+)
+
 const composer = new EffectComposer(renderer);
-const renderPass = new RenderPass( scene, camera );
-composer.addPass( renderPass );
+const renderPass = new RenderPass(scene, camera);
+composer.addPass(renderPass);
 
 const bloompass = new UnrealBloomPass();
-bloompass.strength = 0.02; 
-composer.addPass( bloompass );
+bloompass.strength = 0.02;
+composer.addPass(bloompass);
 
 
 window.addEventListener('resize', onWindowResize, false)
@@ -188,23 +210,23 @@ function animate() {
     pointLights.forEach(function (pointLight) {
         var range = 1; // Maximum range of movement in each axis
         var speed = 0.2; // Speed of movement
-    
+
         // Generate random displacements within the defined range
         var dx = Math.random() * range - range / 2;
         var dy = Math.random() * range - range / 2;
         var dz = Math.random() * range - range / 2;
-    
+
         // Update the position of the point light
         pointLight.position.x += dx * speed;
         pointLight.position.y += dy * speed;
         pointLight.position.z += dz * speed;
-      });
-    
+    });
+
     controls.update()
 
     render()
 
-   
+
 }
 
 function render() {
